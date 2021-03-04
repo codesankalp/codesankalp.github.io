@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>django on Sankalp</title>
+    <link>/categories/django/</link>
+    <description>Recent content in django on Sankalp</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/django/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Social Login with Django REST API and ReactJS</title>
+      <link>/p/social-login-with-django-rest-api-and-reactjs/</link>
+      <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/social-login-with-django-rest-api-and-reactjs/</guid>
+      <description>I am writing this blog because I didn&amp;rsquo;t see any good blogs or articles while I was working to implement GitHub Oauth with JWT based Authentication in an Open-Source contribution at AnitaB.org Open Source. I hope you will like this blog.
+JWT (JSON Web Token) is an open, industry-standard RFC 7519 method for representing claims securely between two parties. It is a more secure and better way of authentication and authorization.</description>
+    </item>
+    
+  </channel>
+</rss>

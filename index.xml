@@ -6,6 +6,190 @@
         <description>Recent content on Sankalp</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+        <lastBuildDate>Thu, 04 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Social Login with Django REST API and ReactJS</title>
+        <link>/p/social-login-with-django-rest-api-and-reactjs/</link>
+        <pubDate>Thu, 04 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>/p/social-login-with-django-rest-api-and-reactjs/</guid>
+        <description>&lt;img src="/p/social-login-with-django-rest-api-and-reactjs/cover.png" alt="Featured image of post Social Login with Django REST API and ReactJS" /&gt;&lt;p&gt;I am writing this blog because I didn&amp;rsquo;t see any good blogs or articles while I was working to implement GitHub Oauth with JWT based Authentication in an Open-Source contribution at &lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/anitab-org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;AnitaB.org Open Source&lt;/a&gt;&lt;/strong&gt;. I hope you will like this blog.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;JWT (JSON Web Token)&lt;/strong&gt; is an open, industry-standard &lt;a class=&#34;link&#34; href=&#34;https://tools.ietf.org/html/rfc7519&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;RFC 7519&lt;/a&gt; method for representing claims securely between two parties. It is a more secure and better way of authentication and authorization. You can read more about this &lt;a class=&#34;link&#34; href=&#34;https://jwt.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;installing-dependencies---django&#34;&gt;Installing Dependencies - Django&lt;/h2&gt;
+&lt;p&gt;As this tutorial is about social auth I am not going to explain how to set-up a Django project. You can refer &lt;a class=&#34;link&#34; href=&#34;https://docs.djangoproject.com/en/3.1/intro/tutorial01/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Django docs&lt;/a&gt; for creating your Django app.&lt;/p&gt;
+&lt;p&gt;This is the &lt;strong&gt;most important point&lt;/strong&gt; which other articles do not cover:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;If you are using djangorestframework-simplejwt in your project then you have to install dj-rest-auth and if you are using djangorestframework-jwt in your project then you have to install django-rest-auth.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Run these commands to install additional dependencies:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;pip install django-allauth
+&lt;span class=&#34;c1&#34;&gt;# Use the below commands if your project uses djangorestframework-simplejwt.&lt;/span&gt;
+pip install djangorestframework-simplejwt
+pip install dj-rest-auth
+&lt;span class=&#34;c1&#34;&gt;# If django-rest-framework-jwt is used then use below commands.&lt;/span&gt;
+pip install djangorestframework-jwt
+pip install django-rest-auth&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: &lt;code&gt;djangorestframework-jwt&lt;/code&gt; is no longer maintained so I will suggest using &lt;code&gt;djangorestframework-simplejwt&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;You can read docs of &lt;a class=&#34;link&#34; href=&#34;https://django-allauth.readthedocs.io/en/latest/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;django-allauth&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://django-rest-framework-simplejwt.readthedocs.io/en/latest/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;djangorestframework-simplejwt&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://dj-rest-auth.readthedocs.io/en/latest/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;dj-rest-auth&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://jpadilla.github.io/django-rest-framework-jwt/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;djangorestframework-jwt&lt;/a&gt; and &lt;a class=&#34;link&#34; href=&#34;https://django-rest-auth.readthedocs.io/en/latest/index.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;django-rest-auth&lt;/a&gt; for more information.&lt;/p&gt;
+&lt;h4 id=&#34;in-this-article-we-are-going-to-discuss-the-jwt-authentication-based-on-djangorestframework-simplejwt-for-djangorestframework-jwt-the-implementation-process-is-same-but-you-have-to-use-django-rest-auth-instead-of-dj-rest-auth-according-to-the-docs&#34;&gt;In this article, we are going to discuss the JWT authentication based on &lt;code&gt;djangorestframework-simplejwt&lt;/code&gt;. For &lt;code&gt;djangorestframework-jwt&lt;/code&gt; the implementation process is same but you have to use &lt;code&gt;django-rest-auth&lt;/code&gt; instead of &lt;code&gt;dj-rest-auth&lt;/code&gt; according to the docs.&lt;/h4&gt;
+&lt;h2 id=&#34;configure-django-settings&#34;&gt;Configure Django Settings&lt;/h2&gt;
+&lt;p&gt;For using social authentication with REST API we have to change &lt;code&gt;settings.py&lt;/code&gt;.
+The suggested changes or additions are mentioned below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Django and Rest Framework&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.admin&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.auth&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.contenttypes&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.sessions&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.messages&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.staticfiles&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;rest_framework&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;corsheaders&amp;#34;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# For Social Authentications&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;dj_rest_auth&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;django.contrib.sites&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.account&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.socialaccount&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.socialaccount.providers.google&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.socialaccount.providers.facebook&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.socialaccount.providers.twitter&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;allauth.socialaccount.providers.github&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# Add your apps here&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;SITE_ID&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;REST_FRAMEWORK&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;DEFAULT_PERMISSION_CLASSES&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;rest_framework.permissions.IsAuthenticated&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;DEFAULT_AUTHENTICATION_CLASSES&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;#34;dj_rest_auth.jwt_auth.JWTCookieAuthentication&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;#34;rest_framework.authentication.SessionAuthentication&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;#34;rest_framework_simplejwt.authentication.JWTAuthentication&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;REST_USE_JWT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;SIMPLE_JWT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;ACCESS_TOKEN_LIFETIME&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timedelta&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;days&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;REFRESH_TOKEN_LIFETIME&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;timedelta&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;days&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;ACCOUNT_EMAIL_VERIFICATION&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;none&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: &lt;code&gt;REST_USE_JWT = True&lt;/code&gt; is required for using JWT authorization in Social Authentications.&lt;/p&gt;
+&lt;h2 id=&#34;django-views&#34;&gt;Django Views&lt;/h2&gt;
+&lt;p&gt;Django all-auth provides adapters for social auth. So we have to import these adapters. To know more about adapters read &lt;a class=&#34;link&#34; href=&#34;https://django-allauth.readthedocs.io/en/latest/configuration.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Both &lt;code&gt;dj-rest-auth&lt;/code&gt; and &lt;code&gt;django-rest-auth&lt;/code&gt; have &lt;strong&gt;SocialLoginView&lt;/strong&gt; which can be used to retrieve the token from social authentication.&lt;/p&gt;
+&lt;p&gt;Code to implement different REST API auth views is mentioned below:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;allauth.socialaccount.providers.github.views&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GitHubOAuth2Adapter&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;allauth.socialaccount.providers.google.views&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GoogleOAuth2Adapter&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;allauth.socialaccount.providers.facebook.views&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FacebookOAuth2Adapter&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;allauth.socialaccount.providers.twitter.views&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TwitterOAuthAdapter&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;allauth.socialaccount.providers.oauth2.client&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OAuth2Client&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;dj_rest_auth.social_serializers&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TwitterLoginSerializer&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;dj_rest_auth.registration.views&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SocialLoginView&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;django.conf&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;settings&lt;/span&gt;
+
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;GithubLogin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SocialLoginView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;authentication_classes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;adapter_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GitHubOAuth2Adapter&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;callback_url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# &amp;lt;Your GitHub Callback URL&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;client_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OAuth2Client&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FacebookLogin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SocialLoginView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;authentication_classes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;adapter_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FacebookOAuth2Adapter&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;GoogleLogin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SocialLoginView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;authentication_classes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;adapter_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GoogleOAuth2Adapter&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TwitterLogin&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;SocialLoginView&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;authentication_classes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;serializer_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TwitterLoginSerializer&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;adapter_class&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TwitterOAuthAdapter&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&#34;django-urls&#34;&gt;Django URL&amp;rsquo;s&lt;/h2&gt;
+&lt;p&gt;Add the defined views to serve to a particular url. The code to implement this is:
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;urlpatterns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;twitter/&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TwitterLogin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;as_view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;twitter_login&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;google/&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GoogleLogin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;as_view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;google_login&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;facebook/&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FacebookLogin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;as_view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;twitter_login&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;github/&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;GithubLogin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;as_view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;twitter_login&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;h2 id=&#34;final-setup&#34;&gt;Final Setup&lt;/h2&gt;
+&lt;p&gt;Now you can migrate by running this command: &lt;code&gt;python manage.py migrate&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Create a superuser using &lt;code&gt;python manage.py createsuperuser&lt;/code&gt; command and login into the Django admin site (http://localhost:8000/admin/). Navigate to the site model dashboard and add site i.e for development add localhost:8000 to the domain name and enter any value in the display name. You can refer the below image for more description:&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 210; flex-basis: 504px&#34;&gt;
+		&lt;a href=&#34;/p/social-login-with-django-rest-api-and-reactjs/site_id.png&#34; data-size=&#34;845x402&#34;&gt;&lt;img src=&#34;/p/social-login-with-django-rest-api-and-reactjs/site_id.png&#34;
+				srcset=&#34;/p/social-login-with-django-rest-api-and-reactjs/site_id_hu5a548100f4c29e1e46dbed2d03a47860_30155_480x0_resize_box_2.png 480w, /p/social-login-with-django-rest-api-and-reactjs/site_id_hu5a548100f4c29e1e46dbed2d03a47860_30155_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;845&#34;
+				height=&#34;402&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;add site to django admin&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;add site to django admin&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;After saving this click on the object that you have created i.e. localhost:8000 and in the URL see whether the site_id is &lt;code&gt;2&lt;/code&gt; or not. If it&amp;rsquo;s not two then change the &lt;code&gt;site_id&lt;/code&gt; in &lt;strong&gt;settings.py&lt;/strong&gt; to the observed value.&lt;/p&gt;
+&lt;p&gt;After this step, the only step remaining is to add &lt;strong&gt;social applications&lt;/strong&gt;. For this visit the social applications page on the admin site and add the configuration like client id and secret key inside this form and save the application.
+I have included the image for GitHub below but others are also the same.&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 195; flex-basis: 468px&#34;&gt;
+		&lt;a href=&#34;/p/social-login-with-django-rest-api-and-reactjs/social_add.png&#34; data-size=&#34;1903x975&#34;&gt;&lt;img src=&#34;/p/social-login-with-django-rest-api-and-reactjs/social_add.png&#34;
+				srcset=&#34;/p/social-login-with-django-rest-api-and-reactjs/social_add_huf0a7fecfb77d1a68e191c3bee4aaa422_109470_480x0_resize_box_2.png 480w, /p/social-login-with-django-rest-api-and-reactjs/social_add_huf0a7fecfb77d1a68e191c3bee4aaa422_109470_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1903&#34;
+				height=&#34;975&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Social Applications Adding in Django&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Social Applications Adding in Django&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;.&lt;/p&gt;
+&lt;p&gt;For getting the credentials for adding social login you can follow the docs of providers.&lt;/p&gt;
+&lt;p&gt;Now all the process for backend is done and after this, you have to use the URL defined in the above steps to get the access_token by making a POST request from the frontend.&lt;/p&gt;
+&lt;p&gt;Image of GitHub Login View in drf:
+&lt;figure style=&#34;flex-grow: 147; flex-basis: 354px&#34;&gt;
+		&lt;a href=&#34;/p/social-login-with-django-rest-api-and-reactjs/drf.png&#34; data-size=&#34;1187x804&#34;&gt;&lt;img src=&#34;/p/social-login-with-django-rest-api-and-reactjs/drf.png&#34;
+				srcset=&#34;/p/social-login-with-django-rest-api-and-reactjs/drf_hu683c1e9851eddd084af93ab0f6f765d1_71116_480x0_resize_box_2.png 480w, /p/social-login-with-django-rest-api-and-reactjs/drf_hu683c1e9851eddd084af93ab0f6f765d1_71116_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1187&#34;
+				height=&#34;804&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;Image of GitHub Login View in drf&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;Image of GitHub Login View in drf&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&#34;react---frontend&#34;&gt;React - Frontend&lt;/h2&gt;
+&lt;p&gt;In your React app, you have to call the API and use the retrieved access token to log in users.&lt;/p&gt;
+&lt;p&gt;You can make components of different login by following this for &lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/react-google-login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Google login&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/react-facebook-login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Facebook login&lt;/a&gt;, &lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/react-github-login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub login&lt;/a&gt;, and &lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/react-twitter-login&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Twitter login&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After this, the only thing remaining is to call the API and get the access token. For this, you may need &lt;a class=&#34;link&#34; href=&#34;https://www.npmjs.com/package/axios&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;axios&lt;/a&gt; library.
+Use &lt;code&gt;axios&lt;/code&gt; to call the API that we have made in previous steps and store the access token to make user log in to the frontend.&lt;/p&gt;
+&lt;p&gt;For code to implement this in React (frontend) you can refer &lt;strong&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/anitab-org/open-source-programs-web/pull/107/files&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;this&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Thanks for reading this. I will post more content regarding this in the future.&lt;/strong&gt;&lt;/p&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>
