@@ -1,0 +1,202 @@
+<html>
+
+<head>
+    <title>Experiment 1 - Web Technology</title>
+</head>
+
+<body style="padding: 4rem;
+      width: 670px;
+      margin-left: auto;
+      margin-right: auto;">
+    <h3 style="text-align: center;">EXPERIMENT 1</h3>
+    <div>
+        <h4>AIM</h4>
+        <p>Explore the functionality and uses of the web browser in Web Technology which is helpful in designing and
+            debugging.
+        </p>
+    </div>
+    <div>
+        <h4>REQUIREMENTS</h4>
+        <p>A Web browser installed in the computer.</p>
+    </div>
+    <div>
+        <h4>THEORY</h4>
+        <div>
+            <p>
+                <strong>Web Browser:</strong>An application software for accessing the World Wide Web or local website.
+                In simple words it retrieves and shows the
+                content from the web server to the user`s device.<br />Examples: Chromium, Firefox, Brave, Google
+                Chrome, Safari etc...
+            </p>
+            <img src="https://lh5.googleusercontent.com/Vzg87EPtVn3bZH57QCgarcYwr4QAH1hLofPYWTgwhXVDnuiCodqLFUm6rVAdRf4kalGpBSH12aL4HLRs4sEnt9bMmY0W1G7Gp3inK9LjLv08R804m2-QIkJ0MvRPuW-9WECyZELg"
+                height="339" style="display:block;margin-left:auto;margin-right:auto" />
+            <p style="text-align:center"><i>Fig 1.1: Different Web browsers logos
+                </i>
+            </p>
+        </div>
+        <div>
+            <p><strong>Debugging: </strong>Debugging is a process to find and remove bugs that causes errors in proper
+                functionality of software, apps or websites.
+            </p>
+        </div>
+        <div>
+            <p><strong>Debugger: </strong>A tool which helps in debugging code by running the program under controlled
+                conditions. In general all debuggers
+                consist of features like stopping execution of a program at a particular line also called breakpoint,
+                step in and step
+                out feature.<br />In the context of Web Technology, a debugger is useful in making proper designs and
+                debugging the website flow like
+                debugging interactions on the web page.
+            </p>
+        </div>
+        <div>
+            <p><strong>Web browser Debugger (Browser Dev Tools):</strong>
+                The browser debugger or developer tools comes inbuilt in the browser. These tools make the development
+                handy for web
+                developers because it helps in tweaking styles, manipulating document object model, debugging javascript
+                code, and
+                checking the responsiveness of the website on different screen sizes and devices.
+            </p>
+            <img style="display:block;margin-left:auto;margin-right:auto" height="239"
+                src="https://i.ibb.co/PT9g4vt/7-Hd3t-UIn-ors-Ggs-Q7-Kn-VORBRIBnamu0-SYBlgb5-SHXZJR5iy-O4-UD0-I-G55-MZDN4kv6-UAn9mav-JNDd-TD3l-FMYm.png"
+                border="0">
+            <p style="text-align:center"><i>Fig 1.2: Browser Dev Tools
+                </i>
+            </p>
+        </div>
+        <br />
+        <div>
+            <strong>Steps to open debugger in browser:</strong>
+            <li>Right click on the browser screen and click <strong>Inspect</strong> option.</li>
+            <li>Press <strong></strong>F12.</li>
+            <li>Press <strong>ctrl+shift+I</strong> (windows or linux) or <strong>
+                    cmd+shift+I </strong> (mac).
+            </li>
+            <li>Press <strong>ctrl+shift+J</strong> (windows or linux) or <strong>cmd+shift+J</strong> (mac).</li>
+            <li>Press <strong>ctrl+shift+K</strong> (windows or linux) or <strong>cmd+shift+K</strong> (mac).</li>
+        </div>
+    </div>
+    <div>
+        <h4>DEBUGGER FEATURES</h4>
+        <ol>
+            <li>
+                <strong>Network Panel</strong><br>
+                <p>This dev tool panel consists of all the network requests that browsers make to retrieve web pages
+                    content from the web
+                    server. It consists of the lists of requests which are necessary to load the webpage which includes
+                    different types of
+                    files i.e. html, js, css, json, png, jpeg, plain etc...
+                </p>
+                <img height="300" width="602" style="display:block;margin-left:auto;margin-right:auto"
+                    src="https://lh3.googleusercontent.com/uGqRKXMkKXynLp7WVM5stFPRQU-CPBhmie1Tny_Lchgt-_I2BeDD4rJBTfNZVvuca0eDNRyN_rdj8aeiFVGOYXTa8RdL8sBWS3RtclV41RMN4jFLgaVE0XggaXzQwP8kRuDnjd-8">
+                <p style="text-align:center"><i>Fig 1.3: Network Panel with all network requests</i></p>
+                <p>The network panel consists of a table which contains 9 columns:
+                </p>
+                <ol>
+                    <li><strong>Status: </strong> It shows the status of the requests i.e. the HTTP status codes.<br />
+                        &nbsp;&nbsp;- Informational responses (100-199)<br />
+                        &nbsp;&nbsp;- Successful responses (200-299)<br />
+                        &nbsp;&nbsp;- Redirection messages (300-399)<br />
+                        &nbsp;&nbsp;- Client error messages (400-499)<br />
+                        &nbsp;&nbsp;- Server error messages (500-599)
+                    </li>
+                    <li><strong>Method: </strong> It shows the type of request i.e. GET, POST, PUT, PATCH, DELETE.</li>
+                    <li><strong>Domain: </strong> It is the domain where the request is made.</li>
+                    <li><strong>File: </strong> It consists of the complete URL or blob data of the file that was
+                        requested.
+                    </li>
+                    <li><strong>Initiator: </strong> The source or tag which initiated the request.</li>
+                    <li><strong>Type:</strong>The type of the file which is being requested i.e. html, css, js, json,
+                        png, etc...
+                    </li>
+                    <li><strong>Transferred: </strong> The data which is used to get that file from web server i.e.
+                        36.22KB.
+                    </li>
+                    <li><strong>Size: </strong>After unzipping the actual size of the transferred data.</li>
+                    <li><strong>Timeline: </strong> The time in milliseconds to get that file from the web server.</li>
+                </ol>
+                <p>There are other options also like <strong>disable cache</strong> (if true, it does not caches the
+                    retrieved file in
+                    the web browser) and
+                    <strong>throttling</strong> (triggers the internet speed to load content from the web server).
+                </p>
+            </li>
+            <li>
+                <strong>Sources Panel</strong><br>
+                <p>This tab or panel consists of all the files that are required by the website for proper functioning.
+                </p>
+                <img height="500" width="602" style="display:block;margin-left:auto;margin-right:auto"
+                    src="https://lh3.googleusercontent.com/hSLlVZN0grMZsvGR0Q4Rmj-9XDlqQSBdl8o7hM9hDoFc0rqVlVL0ZapHCqYHE2UG-sHFgv2esUP6NtaijCzW0j_wLHcE5BV4MANfLQN3jO4ndv7ljWdunUNnijCXf6FI9CIuf7q-">
+                <p style="text-align:center"><i>Fig 1.4: Sources Panel of the Dev tools in Browser</i></p>
+                <p>This panel is mostly used for debugging the interactions in the websites i.e. javascript. It can also
+                    evaluate step by
+                    step execution of javascript code by use of breakpoints (XHR, Event Listener, DOM Mutation
+                    breakpoints) watch
+                    expressions and threads.
+                </p>
+                <img style="display:block;margin-left:auto;margin-right:auto"
+                    src="https://lh4.googleusercontent.com/eDdLpc8DmZtuoxOvxNjjsj3WywcZJZDd_8RukwIcZxWNGE6aWfACi-mjRFa3rMZvUvtvJ1qmErOPtzxCyXp9CeXNVO_r2CtcGdt7SA9Kgy-3Ig88xS-Dkjb9dM6fHxFmQw2INR97UHp7bGoorRM"
+                    width="539" height="319" />
+                <p style="text-align:center"><i>Fig 1.5: Paused on breakpoint in javascript code
+                    </i>
+                </p>
+            </li>
+            <li>
+                <strong>Inspector or Elements Panel
+                </strong><br>
+                <p>This panel consists of the html file of the web page and on inspecting the tag of the html webpage it
+                    also shows the
+                    styles, event listeners and dom objects attached to that tag.
+                </p>
+                <img style="display:block;margin-left:auto;margin-right:auto" height="300" width="602"
+                    src="https://lh4.googleusercontent.com/VkIjZG8wWxEd6g3-eHHSE61RZHyMudT8b9MPHC57NdtPQeg4KBVmQCfuOWQSsU9SIoLaBuVHV5Gu0eyooHqqLDiaBq793naE7YkPQ1b9lDOmOf1NOXslqAl96h6vZZVNdtGA2AYg">
+                <p style="text-align:center"><i>Fig 1.6: Inspect Panel of dev tools in browser</i></p>
+                <p>
+                    It consists of searching HTML and picking element pointer-like features which helps in finding the
+                    actual tag inside the
+                    html content.<br>
+                    It can change the style of the web page easily by adding inline style to the selected tag.
+                    This panel is most important when debugging design issues because it can easily tweak the style and
+                    html accordingly by
+                    clicking on the tag and adding the styles.<br>
+                    It also shows the flexbox, grid or box model of the particular tag which helps in understanding the
+                    orientation of the
+                    tag in the window.<br>
+                    To change the style just select the tag where the style needs to be applied and then in the style
+                    tab add the css
+                    properties which needs to be applied to get the desired design. It can also tweak the style of a css
+                    style class which
+                    will change all the style of the tag which consists of that style.
+                </p>
+                <img style="display:block;margin-left:auto;margin-right:auto" height="303" width="504"
+                    src="https://lh3.googleusercontent.com/P9uOZ9-RrtSwBGyDMeZWjXtws0797708Pq10dyfb8xHGizdXPTwGYSY7Tc7nr0HcT1g5RUEro6rvk30jMiGaWelRlL3YITwO7pfXX6FwmJRZn6SB2sXPj92DTd_KpF7pbZn-rPRdXnE4iWWByb0">
+                <p style="text-align:center"><i>Fig 1.7: Tweaking style of google logo by adding border</i></p>
+            </li>
+            <li>
+                <strong>Performance Panel</strong><br>
+                <p>This panel is important to analyze runtime performance of the website. From here we can change the
+                    CPU processor for
+                    different devices. It is important because it helps in optimizing the runtime performance of the
+                    website on different
+                    devices like old smartphones which have low cpu speed. This panel consists of an option to toggle
+                    the cpu speed, network
+                    speed and analyze the performance of a particular task also.
+                </p>
+                <img style="display:block;margin-left:auto;margin-right:auto" height="389" width="602"
+                    src="https://lh4.googleusercontent.com/Na5rew4XaNy5J9t-EbSaHzkjaUUprBqY42ita9w4oG3_rCV9KCjrWuu0-XVUjskzsdQi9owl1jObb7-6NhePShuDdIRuf1yKnua5nx6xNNaNc8ql6TzfN-Ab7zIkQv1JCVgytUFJ">
+                <p style="text-align:center"><i>Fig 1.8: Runtime performance of google.com
+                    </i>
+                </p>
+            </li>
+        </ol>
+    </div>
+    <div>
+        <h4>CONCLUSION</h4>
+        <p>The web browser debugger is successfully studied for debugging and designing websites. It boosts the
+            development process
+            of the web developer.
+        </p>
+    </div>
+</body>
+
+</html>
