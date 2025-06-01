@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stuck Attempt Revolution - Demo Day 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D5A3D;
+            --medium-green: #4A8B5C;
+            --light-green: #C8E6C9;
+            --dark-navy: #1A1D23;
+            --medium-gray: #6B7280;
+            --pure-white: #FFFFFF;
+            --apple-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --apple-shadow-light: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --chart-color-1: #2D5A3D;
+            --chart-color-2: #4A8B5C;
+            --chart-color-3: #6B9B7D;
+            --chart-color-4: #8CAB9E;
+            --chart-color-5: #A0B5A8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-navy);
+            color: var(--pure-white);
+            overflow-x: hidden;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .presentation-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(45, 90, 61, 0.1) 0%, var(--dark-navy) 70%);
+            padding: 2rem 0;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            max-width: 90%;
+            padding: 2rem;
+            animation: appleSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--medium-green) transparent;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--medium-green);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-green);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes appleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .slide h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        .slide h2 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--pure-white);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .slide h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .apple-tagline {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: var(--medium-green);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .metric-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .numbers-metric-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: nowrap;
+        }
+
+        .numbers-metric-showcase .apple-metric-card {
+            flex: 0 0 280px;
+            max-width: 280px;
+        }
+
+        .apple-metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--apple-shadow);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apple-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--medium-green), var(--light-green));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .apple-metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.4);
+        }
+
+        .apple-metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-number {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            color: var(--medium-green);
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            animation: countUpApple 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes countUpApple {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--pure-white);
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .metric-sublabel {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        .problem-showcase,
+        .solution-showcase {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .apple-problem-card,
+        .apple-solution-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary-green);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: slideInApple 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .apple-solution-card {
+            border-left-color: var(--medium-green);
+        }
+
+        .apple-problem-card:hover,
+        .apple-solution-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(8px);
+        }
+
+        .apple-problem-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .apple-problem-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .apple-problem-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .apple-problem-card:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        .apple-solution-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .apple-solution-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .apple-solution-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .apple-solution-card:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        @keyframes slideInApple {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .apple-progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            height: 8px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .apple-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-green), var(--medium-green));
+            border-radius: 50px;
+            animation: progressApple 2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes progressApple {
+            from {
+                width: 0%;
+            }
+        }
+
+        .apple-navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 12px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--apple-shadow-light);
+        }
+
+        .apple-nav-btn {
+            padding: 16px 32px;
+            background: transparent;
+            border: none;
+            border-radius: 50px;
+            color: var(--pure-white);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .apple-nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .apple-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 16px 24px;
+            border-radius: 50px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .apple-highlight {
+            background: linear-gradient(120deg, rgba(45, 90, 61, 0.3) 0%, transparent 100%);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .success-highlight {
+            background: linear-gradient(120deg, rgba(74, 139, 92, 0.3) 0%, transparent 100%);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .apple-timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .apple-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--medium-green));
+            animation: timelineGrowApple 2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes timelineGrowApple {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 80%;
+            }
+        }
+
+        .timeline-milestone {
+            background: var(--pure-white);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 2rem;
+            z-index: 1;
+            box-shadow: var(--apple-shadow-light);
+            animation: milestonePopApple 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .timeline-milestone:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-milestone:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-milestone:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes milestonePopApple {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(180deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .big-reveal {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 2rem 0;
+            animation: bigRevealApple 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes bigRevealApple {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateY(90deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .company-logo {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            height: 50px;
+            width: auto;
+            opacity: 0.9;
+            z-index: 100;
+            filter: brightness(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .company-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .visual-showcase {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--apple-shadow);
+        }
+
+        .visual-showcase img {
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: var(--apple-shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .visual-showcase img:hover {
+            transform: scale(1.02);
+            box-shadow: var(--apple-shadow);
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--apple-shadow);
+        }
+
+        .chart-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--medium-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-description {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            line-height: 1.4;
+        }
+
+        /* Compact solution cards for slide 6 */
+        .compact-solution-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 1.5rem auto;
+        }
+
+        .compact-solution-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 1.2rem;
+            border-left: 3px solid var(--medium-green);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: slideInApple 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .compact-solution-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(6px);
+        }
+
+        .compact-solution-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .compact-solution-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .compact-solution-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .compact-solution-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .compact-solution-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--medium-green);
+            letter-spacing: -0.01em;
+        }
+
+        .compact-solution-card p {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            color: var(--pure-white);
+            opacity: 0.9;
+        }
+
+        .thank-you-hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hackerrank-badge {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            background: rgba(45, 90, 61, 0.15);
+            border: 1px solid var(--medium-green);
+            border-radius: 40px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--pure-white);
+            backdrop-filter: blur(10px);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .thank-you-title {
+            font-size: clamp(5rem, 10vw, 10rem);
+            font-weight: 600;
+            color: var(--pure-white);
+            margin: 0;
+            letter-spacing: -0.04em;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .thank-you-content {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .ai-credit {
+            font-size: 1.1rem;
+            color: var(--medium-green);
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            font-style: italic;
+        }
+
+        .contact-line {
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .minimal-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .frame-corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(74, 139, 92, 0.3);
+        }
+
+        .frame-corner.top-left {
+            top: 25%;
+            left: 15%;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 8px 0 0 0;
+        }
+
+        .frame-corner.top-right {
+            top: 25%;
+            right: 15%;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 8px 0 0;
+        }
+
+        .frame-corner.bottom-left {
+            bottom: 35%;
+            left: 15%;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 8px;
+        }
+
+        .frame-corner.bottom-right {
+            bottom: 35%;
+            right: 15%;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 8px 0;
+        }
+
+        /* Chart.js Container Styles */
+        .apple-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 3rem auto;
+            animation: chartAppear 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        @keyframes chartAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .chart-wrapper {
+            position: relative;
+            width: 450px;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--apple-shadow);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .chart-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.4);
+        }
+
+        .chart-canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .chart-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            min-width: 350px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            opacity: 0;
+            animation: legendSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        .legend-item:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .legend-item:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .legend-item:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .legend-item:nth-child(4) {
+            animation-delay: 0.8s;
+        }
+
+        .legend-item:nth-child(5) {
+            animation-delay: 1.0s;
+        }
+
+        @keyframes legendSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .legend-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(8px);
+            box-shadow: var(--apple-shadow-light);
+        }
+
+        .legend-item.active {
+            background: rgba(74, 139, 92, 0.2);
+            border-color: var(--medium-green);
+            transform: translateX(12px);
+        }
+
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .legend-content {
+            flex: 1;
+        }
+
+        .legend-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--pure-white);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legend-icon {
+            font-size: 1.2rem;
+        }
+
+        .legend-description {
+            font-size: 0.85rem;
+            color: var(--medium-gray);
+            line-height: 1.4;
+        }
+
+        .legend-percentage {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--medium-green);
+            margin-left: 1rem;
+        }
+
+        .chart-detail-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(26, 29, 35, 0.95);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 350px;
+            box-shadow: var(--apple-shadow);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 100;
+        }
+
+        .chart-detail-panel.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detail-icon {
+            font-size: 2.5rem;
+        }
+
+        .detail-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--pure-white);
+            line-height: 1.2;
+        }
+
+        .detail-percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--medium-green);
+            margin-left: auto;
+        }
+
+        .detail-description {
+            font-size: 1rem;
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        /* CSS-based fallback donut chart */
+        .fallback-donut-chart {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(var(--chart-color-1) 0deg 108deg,
+                    var(--chart-color-2) 108deg 180deg,
+                    var(--chart-color-3) 180deg 252deg,
+                    var(--chart-color-4) 252deg 324deg,
+                    var(--chart-color-5) 324deg 360deg);
+            animation: rotateChart 2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes rotateChart {
+            from {
+                transform: rotate(-90deg) scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: rotate(-90deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .fallback-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: var(--dark-navy);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .fallback-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--medium-green);
+        }
+
+        .fallback-subtitle {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+        }
+
+        .fallback-segments {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .numbers-metric-showcase {
+                flex-wrap: wrap;
+            }
+
+            .numbers-metric-showcase .apple-metric-card {
+                flex: 1 1 100%;
+                max-width: none;
+            }
+
+            .apple-metric-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .apple-navigation {
+                bottom: 20px;
+                padding: 8px;
+            }
+
+            .apple-nav-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .company-logo {
+                height: 40px;
+                top: 20px;
+                left: 20px;
+            }
+
+            .visual-showcase {
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .slide {
+                max-height: 85vh;
+                padding: 1rem;
+            }
+
+            .thank-you-title {
+                font-size: clamp(3.5rem, 12vw, 6rem);
+            }
+
+            .hackerrank-badge {
+                top: 10%;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .frame-corner {
+                width: 40px;
+                height: 40px;
+            }
+
+            .frame-corner.top-left,
+            .frame-corner.top-right {
+                top: 20%;
+            }
+
+            .frame-corner.bottom-left,
+            .frame-corner.bottom-right {
+                bottom: 30%;
+            }
+
+            .frame-corner.top-left,
+            .frame-corner.bottom-left {
+                left: 10%;
+            }
+
+            .frame-corner.top-right,
+            .frame-corner.bottom-right {
+                right: 10%;
+            }
+
+            .apple-chart-container {
+                flex-direction: column;
+                gap: 2rem;
+                max-width: 95%;
+            }
+
+            .chart-wrapper {
+                width: 320px;
+                height: 320px;
+                padding: 1.5rem;
+            }
+
+            .chart-legend {
+                min-width: auto;
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .legend-item {
+                padding: 1rem;
+            }
+
+            .legend-title {
+                font-size: 1rem;
+            }
+
+            .legend-description {
+                font-size: 0.8rem;
+            }
+
+            .legend-percentage {
+                font-size: 1.2rem;
+            }
+
+            .compact-solution-showcase {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 0.8rem;
+                margin: 1rem auto;
+            }
+
+            .compact-solution-card {
+                padding: 1rem;
+            }
+
+            .compact-solution-card h3 {
+                font-size: 0.9rem;
+            }
+
+            .compact-solution-card p {
+                font-size: 0.8rem;
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation-container">
+        <img src="https://codesankalp.com/images/hackerrank.png" alt="HackerRank" class="company-logo">
+
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> of <span id="total-slides">9</span>
+        </div>
+
+        <!-- Slide 1: Hero -->
+        <div class="slide active">
+            <h1>Fixing Stuck Attempts</h1>
+            <p class="hero-subtitle">When attempts get stuck, hiring gets delayed. <br>We fixed it.</p>
+            <div class="apple-timeline">
+                <div class="timeline-milestone">📊</div>
+                <div class="timeline-milestone">🔍</div>
+                <div class="timeline-milestone">🛠️</div>
+                <div class="timeline-milestone">🚀</div>
+            </div>
+            <p class="hero-subtitle" style="margin-top: 2rem; font-size: 1.2rem; opacity: 0.6;">Demo Day - June 4th,
+                2025<br>Skills Team | Sankalp</p>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <h2>The Challenge</h2>
+            <p class="hero-subtitle">When candidate assessments get stuck, everyone loses</p>
+
+            <div class="visual-showcase">
+                <img src="https://codesankalp.com/images/stuck_attempt_hrw.png"
+                    alt="Recruiter seeing stuck attempt in progress" />
+                <p class="chart-description" style="text-align: center; margin-top: 1rem; color: var(--medium-gray);">
+                    Recruiters see candidates stuck "In Progress" indefinitely - no reports generated for hiring
+                    decisions
+                </p>
+            </div>
+
+            <div class="metric-showcase">
+                <div class="apple-metric-card">
+                    <h3>👨‍💼 Recruiters</h3>
+                    <p class="metric-label">No candidate reports generated</p>
+                    <p class="metric-sublabel">Unable to evaluate test performance</p>
+                </div>
+                <div class="apple-metric-card">
+                    <h3>💼 Business Impact</h3>
+                    <p class="metric-label">Hiring decisions delayed</p>
+                    <p class="metric-sublabel">Candidate experience degraded</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Problem Scale -->
+        <div class="slide">
+            <h2>Problem Scale</h2>
+            <p class="hero-subtitle">Understanding the magnitude of stuck attempts before our improvements</p>
+
+            <div class="metric-showcase">
+                <div class="apple-metric-card">
+                    <span class="metric-number">1%</span>
+                    <p class="metric-label">of attempts get stuck</p>
+                    <p class="metric-sublabel">Affecting candidate experience</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">200</span>
+                    <p class="metric-label">Monthly attempts impacted</p>
+                    <p class="metric-sublabel">Across all project attempts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Support Ticket Data -->
+        <div class="slide">
+            <h2>By the Numbers</h2>
+
+            <div class="metric-showcase numbers-metric-showcase">
+                <div class="apple-metric-card">
+                    <span class="metric-number">79</span>
+                    <p class="metric-label">Total Support Tickets</p>
+                    <p class="metric-sublabel">Past 3 months</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">12</span>
+                    <p class="metric-label">Stuck Attempt Tickets</p>
+                    <p class="metric-sublabel">15% of all support burden</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">15%</span>
+                    <p class="metric-label">Support team impact</p>
+                    <p class="metric-sublabel">Valuable engineering time</p>
+                </div>
+            </div>
+
+            <div class="visual-showcase">
+                <img src="https://codesankalp.com/images/support_tickets.png"
+                    alt="Support tickets showing stuck attempts" />
+                <p class="chart-description" style="text-align: center; margin-top: 1rem; color: var(--medium-gray);">
+                    12 out of 79 support tickets in past 3 months were stuck attempt related - 15% of our support burden
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Root Causes - Chart.js Donut Chart -->
+        <div class="slide">
+            <h2>Root Cause Analysis</h2>
+            <p class="hero-subtitle">Breakdown of stuck attempt sources</p>
+
+            <div class="apple-chart-container">
+                <div class="chart-wrapper">
+                    <canvas id="rootCauseChart" class="chart-canvas"></canvas>
+                </div>
+
+                <div class="chart-legend">
+                    <div class="legend-item" data-index="0">
+                        <div class="legend-dot" style="background: var(--chart-color-1);"></div>
+                        <div class="legend-content">
+                            <div class="legend-title">
+                                Internal Services Avalanche
+                            </div>
+                            <div class="legend-description">Content service timeouts, API failures</div>
+                        </div>
+                        <div class="legend-percentage">20%</div>
+                    </div>
+
+                    <div class="legend-item" data-index="1">
+                        <div class="legend-dot" style="background: var(--chart-color-2);"></div>
+                        <div class="legend-content">
+                            <div class="legend-title">
+                                Git Operations Crisis
+                            </div>
+                            <div class="legend-description">Missing refs, merge failures</div>
+                        </div>
+                        <div class="legend-percentage">20%</div>
+                    </div>
+
+                    <div class="legend-item" data-index="2">
+                        <div class="legend-dot" style="background: var(--chart-color-3);"></div>
+                        <div class="legend-content">
+                            <div class="legend-title">
+                                State Management Chaos
+                            </div>
+                            <div class="legend-description">Race conditions, duplicate keys</div>
+                        </div>
+                        <div class="legend-percentage">30%</div>
+                    </div>
+
+                    <div class="legend-item" data-index="3">
+                        <div class="legend-dot" style="background: var(--chart-color-4);"></div>
+                        <div class="legend-content">
+                            <div class="legend-title">
+                                Infrastructure Instability
+                            </div>
+                            <div class="legend-description">VM timeouts, DNS failures</div>
+                        </div>
+                        <div class="legend-percentage">20%</div>
+                    </div>
+
+                    <div class="legend-item" data-index="4">
+                        <div class="legend-dot" style="background: var(--chart-color-5);"></div>
+                        <div class="legend-content">
+                            <div class="legend-title">
+                                Other Edge Cases
+                            </div>
+                            <div class="legend-description">Network timeouts, misc conflicts</div>
+                        </div>
+                        <div class="legend-percentage">10%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail Panel -->
+            <div class="chart-detail-panel" id="chartDetailPanel">
+                <div class="detail-header">
+                    <div class="detail-icon" id="detailIcon"></div>
+                    <div>
+                        <div class="detail-title" id="detailTitle">Internal Services Avalanche</div>
+                        <div class="detail-percentage" id="detailPercentage">20%</div>
+                    </div>
+                </div>
+                <div class="detail-description" id="detailDescription">
+                    Content service timeouts causing 40+ stuck workspaces monthly. Workspace service failures due to
+                    cloud provider API issues.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Solution -->
+        <div class="slide">
+            <h2>The Solution</h2>
+
+            <div class="visual-showcase" style="margin: 1.5rem auto;">
+                <img src="https://codesankalp.com/images/flow.png"
+                    alt="Solution flow diagram showing the process from problem detection to resolution" />
+                <p class="chart-description" style="text-align: center; margin-top: 1rem; color: var(--medium-gray);">
+                    End-to-end solution flow: Detection → Analysis → Auto-healing → Monitoring
+                </p>
+            </div>
+
+            <div class="compact-solution-showcase">
+                <div class="compact-solution-card">
+                    <h3>🤖 Self-Healing Systems</h3>
+                    <p>Auto-repair mechanisms for known failure patterns, proactive health checks, automated disk space
+                        monitoring</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>⚡ Fix State Transitions Race Condition</h3>
+                    <p>Atomic state updates, proper locking mechanisms, duplicate key prevention, synchronized workspace
+                        lifecycle</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>📊 Intelligent Monitoring</h3>
+                    <p>Enhanced logging with company/test IDs, fixed email alerts grouped by company, real-time
+                        visibility dashboard</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>🔧 Increasing Service Reliability</h3>
+                    <p>Git service improvements, pre-sync validation, workspace locking, repository integrity checks</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: The Results -->
+        <div class="slide">
+            <h2>The Impact</h2>
+            <div class="big-reveal">85%</div>
+            <p class="apple-tagline">Reduction in weekly stuck attempts</p>
+
+            <div class="visual-showcase">
+                <img src="https://codesankalp.com/images/reduced_stuck_attempt_chart.png"
+                    alt="Analytics chart showing stuck attempt reduction" />
+                <p class="chart-description" style="text-align: center; margin-top: 1rem; color: var(--medium-gray);">
+                    In the last month, weekly stuck attempts consistently dropped from 11 to 0-1 - achieving near-zero
+                    failure rate
+                </p>
+            </div>
+        </div>
+
+        <!-- Slide 8: What's Next -->
+        <div class="slide">
+            <h2>What's Next</h2>
+            <div class="solution-showcase">
+                <div class="apple-solution-card">
+                    <h3>📈 Predictive Intelligence</h3>
+                    <p>Deep dive into remaining edge cases, implement ML-based anomaly detection for proactive
+                        prevention</p>
+                </div>
+                <div class="apple-solution-card">
+                    <h3>🔧 Infrastructure Perfection</h3>
+                    <p>Complete VM agent reliability improvements, automated resource
+                        management</p>
+                </div>
+                <div class="apple-solution-card">
+                    <h3>🏆 The Ultimate Goal</h3>
+                    <p>Reduce stuck attempts from current 1% to under <strong>0.01%</strong> by end of Q2 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Thank You -->
+        <div class="slide">
+            <div class="thank-you-hero">
+                <div class="hackerrank-badge">
+                    <img src="https://codesankalp.com/images/hackerrank.png" alt="HackerRank"
+                        style="height: 24px; margin-right: 8px;">
+                    <span>HackerRank</span>
+                </div>
+
+                <h1 class="thank-you-title">Thank You</h1>
+
+                <div class="thank-you-content">
+                    <p class="ai-credit">Built with AI</p>
+                    <p class="contact-line">Please reach out to Sankalp for any questions</p>
+                </div>
+
+                <div class="minimal-frame">
+                    <div class="frame-corner top-left"></div>
+                    <div class="frame-corner top-right"></div>
+                    <div class="frame-corner bottom-left"></div>
+                    <div class="frame-corner bottom-right"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="apple-navigation">
+            <button class="apple-nav-btn" onclick="previousSlide()" id="prev-btn" disabled>← Previous</button>
+            <button class="apple-nav-btn" onclick="nextSlide()" id="next-btn">Next →</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        let rootCauseChart = null;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+
+            document.getElementById('current-slide').textContent = n + 1;
+            document.getElementById('prev-btn').disabled = n === 0;
+            document.getElementById('next-btn').disabled = n === totalSlides - 1;
+
+            if (n === totalSlides - 2) {
+                document.getElementById('next-btn').textContent = 'Thank You →';
+            } else if (n === totalSlides - 1) {
+                document.getElementById('next-btn').textContent = '🎉 Finish';
+            } else {
+                document.getElementById('next-btn').textContent = 'Next →';
+            }
+
+            // Trigger number animations when results slide becomes active
+            if (n === 6) { // Results slide
+                animateResultNumbers();
+            }
+
+            // Initialize chart when root causes slide becomes active
+            if (n === 4) { // Root causes slide (slide 5, index 4)
+                setTimeout(() => {
+                    initializeRootCauseChart();
+                }, 100);
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        function animateResultNumbers() {
+            const bigReveal = document.querySelector('.big-reveal');
+            if (bigReveal) {
+                let count = 0;
+                const target = 85;
+                const increment = target / 60; // 60 frames for smooth animation
+
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        count = target;
+                        clearInterval(timer);
+                    }
+                    bigReveal.textContent = Math.floor(count) + '%';
+                }, 16); // ~60fps
+            }
+        }
+
+        function initializeRootCauseChart() {
+            const ctx = document.getElementById('rootCauseChart');
+            if (!ctx) {
+                console.error('Chart canvas not found');
+                return;
+            }
+
+            // Clear any existing chart
+            if (rootCauseChart) {
+                rootCauseChart.destroy();
+                rootCauseChart = null;
+            }
+
+            // Check if Chart.js is available
+            if (typeof Chart === 'undefined') {
+                console.warn('Chart.js not loaded, using fallback');
+                createFallbackChart();
+                return;
+            }
+
+            const chartData = {
+                labels: [
+                    'Internal Services Avalanche',
+                    'Git Operations Crisis',
+                    'State Management Chaos',
+                    'Infrastructure Instability',
+                    'Other Edge Cases'
+                ],
+                datasets: [{
+                    data: [20, 20, 30, 20, 10],
+                    backgroundColor: [
+                        getComputedStyle(document.documentElement).getPropertyValue('--chart-color-1').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--chart-color-2').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--chart-color-3').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--chart-color-4').trim(),
+                        getComputedStyle(document.documentElement).getPropertyValue('--chart-color-5').trim()
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 2,
+                    hoverBorderColor: 'rgba(255, 255, 255, 0.3)',
+                    hoverBorderWidth: 3
+                }]
+            };
+
+            const detailData = [
+                {
+                    icon: '',
+                    title: 'Internal Services Avalanche',
+                    percentage: '20%',
+                    description: 'Content service timeouts causing 40+ stuck workspaces monthly. Workspace service failures due to cloud provider API issues.'
+                },
+                {
+                    icon: '',
+                    title: 'Git Operations Crisis',
+                    percentage: '20%',
+                    description: 'Missing _hackerrank_source tag references, merge failures, race conditions in git service.'
+                },
+                {
+                    icon: '',
+                    title: 'State Management Chaos',
+                    percentage: '30%',
+                    description: 'Race conditions between state transitions, duplicate key errors during workspace lifecycle management.'
+                },
+                {
+                    icon: '',
+                    title: 'Infrastructure Instability',
+                    percentage: '20%',
+                    description: 'VM agent timeouts, DNS failures, disk space issues affecting workspace provisioning and execution.'
+                },
+                {
+                    icon: '',
+                    title: 'Other Edge Cases',
+                    percentage: '10%',
+                    description: 'Miscellaneous edge cases including network timeouts, third-party integrations, and rare system conflicts.'
+                }
+            ];
+
+            try {
+                rootCauseChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '60%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true,
+                                backgroundColor: 'rgba(26, 29, 35, 0.95)',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#6B7280',
+                                borderColor: 'rgba(255, 255, 255, 0.1)',
+                                borderWidth: 1,
+                                cornerRadius: 12,
+                                displayColors: true,
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            },
+                            datalabels: {
+                                display: true,
+                                color: '#FFFFFF',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                },
+                                formatter: function (value, context) {
+                                    return value + '%';
+                                },
+                                anchor: 'center',
+                                align: 'center'
+                            }
+                        },
+                        elements: {
+                            arc: {
+                                borderRadius: 8
+                            }
+                        },
+                        animation: {
+                            animateRotate: true,
+                            animateScale: true,
+                            duration: 2000,
+                            easing: 'easeOutCubic'
+                        },
+                        onHover: (event, elements) => {
+                            if (elements.length > 0) {
+                                const index = elements[0].index;
+                                showChartDetail(detailData[index]);
+                                highlightLegendItem(index);
+                            } else {
+                                hideChartDetail();
+                                clearLegendHighlight();
+                            }
+                        }
+                    }
+                });
+
+                // Set up legend interactions
+                setupLegendInteractions(detailData);
+                console.log('Chart initialized successfully');
+            } catch (error) {
+                console.error('Chart initialization failed:', error);
+                createFallbackChart();
+            }
+        }
+
+        function setupLegendInteractions(detailData) {
+            const legendItems = document.querySelectorAll('.legend-item');
+
+            legendItems.forEach((item, index) => {
+                // Remove existing listeners
+                item.replaceWith(item.cloneNode(true));
+            });
+
+            // Re-get the elements after cloning
+            const newLegendItems = document.querySelectorAll('.legend-item');
+
+            newLegendItems.forEach((item, index) => {
+                item.addEventListener('mouseenter', () => {
+                    showChartDetail(detailData[index]);
+                    highlightLegendItem(index);
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    hideChartDetail();
+                    clearLegendHighlight();
+                });
+
+                item.addEventListener('click', () => {
+                    if (rootCauseChart) {
+                        // Highlight the corresponding chart segment
+                        rootCauseChart.setActiveElements([{ datasetIndex: 0, index: index }]);
+                        rootCauseChart.update();
+                    }
+                    showChartDetail(detailData[index]);
+                    highlightLegendItem(index);
+                });
+            });
+        }
+
+        function showChartDetail(data) {
+            const panel = document.getElementById('chartDetailPanel');
+            const icon = document.getElementById('detailIcon');
+            const title = document.getElementById('detailTitle');
+            const percentage = document.getElementById('detailPercentage');
+            const description = document.getElementById('detailDescription');
+
+            if (panel && icon && title && percentage && description) {
+                icon.textContent = data.icon;
+                title.textContent = data.title;
+                percentage.textContent = data.percentage;
+                description.textContent = data.description;
+
+                panel.classList.add('visible');
+            }
+        }
+
+        function hideChartDetail() {
+            const panel = document.getElementById('chartDetailPanel');
+            if (panel) {
+                panel.classList.remove('visible');
+            }
+        }
+
+        function highlightLegendItem(index) {
+            const legendItems = document.querySelectorAll('.legend-item');
+            legendItems.forEach((item, i) => {
+                if (i === index) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        function clearLegendHighlight() {
+            const legendItems = document.querySelectorAll('.legend-item');
+            legendItems.forEach(item => item.classList.remove('active'));
+        }
+
+        function createFallbackChart() {
+            const canvas = document.getElementById('rootCauseChart');
+            if (!canvas) return;
+
+            const container = canvas.parentElement;
+            if (!container) return;
+
+            container.innerHTML = `
+                <div class="fallback-donut-chart">
+                    <div class="fallback-center">
+                        <div class="fallback-title">Root</div>
+                        <div class="fallback-subtitle">Causes</div>
+                    </div>
+                </div>
+            `;
+
+            const detailData = [
+                {
+                    icon: '',
+                    title: 'Internal Services Avalanche',
+                    percentage: '20%',
+                    description: 'Content service timeouts causing 40+ stuck workspaces monthly. Workspace service failures due to cloud provider API issues.'
+                },
+                {
+                    icon: '',
+                    title: 'Git Operations Crisis',
+                    percentage: '20%',
+                    description: 'Missing _hackerrank_source tag references, merge failures, race conditions in git service.'
+                },
+                {
+                    icon: '',
+                    title: 'State Management Chaos',
+                    percentage: '30%',
+                    description: 'Race conditions between state transitions, duplicate key errors during workspace lifecycle management.'
+                },
+                {
+                    icon: '',
+                    title: 'Infrastructure Instability',
+                    percentage: '20%',
+                    description: 'VM agent timeouts, DNS failures, disk space issues affecting workspace provisioning and execution.'
+                },
+                {
+                    icon: '',
+                    title: 'Other Edge Cases',
+                    percentage: '10%',
+                    description: 'Miscellaneous edge cases including network timeouts, third-party integrations, and rare system conflicts.'
+                }
+            ];
+
+            setupLegendInteractions(detailData);
+            console.log('Fallback chart created');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                showSlide(currentSlide);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function (e) {
+            endX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (endX < startX - 50) { // Swipe left - next slide
+                nextSlide();
+            }
+            if (endX > startX + 50) { // Swipe right - previous slide
+                previousSlide();
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Add some Apple-style magic for card hover effects
+        document.addEventListener('mousemove', function (e) {
+            const cards = document.querySelectorAll('.apple-metric-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                } else {
+                    card.style.transform = '';
+                }
+            });
+        });
+
+        // Handle window resize for chart
+        window.addEventListener('resize', function () {
+            if (rootCauseChart) {
+                rootCauseChart.resize();
+            }
+        });
+    </script>
+</body>
+
+</html>
