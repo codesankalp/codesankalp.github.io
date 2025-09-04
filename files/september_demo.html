@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Service Scaling Revolution - Demo Day September 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D5A3D;
+            --medium-green: #4A8B5C;
+            --light-green: #C8E6C9;
+            --dark-navy: #1A1D23;
+            --medium-gray: #6B7280;
+            --pure-white: #FFFFFF;
+            --apple-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --apple-shadow-light: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --chart-color-1: #2D5A3D;
+            --chart-color-2: #4A8B5C;
+            --chart-color-3: #6B9B7D;
+            --chart-color-4: #8CAB9E;
+            --chart-color-5: #A0B5A8;
+            --success-green: #10B981;
+            --warning-yellow: #F59E0B;
+            --glassmorphism-bg: rgba(255, 255, 255, 0.08);
+            --glassmorphism-border: rgba(255, 255, 255, 0.12);
+            --modern-gradient: linear-gradient(135deg, rgba(45, 90, 61, 0.2) 0%, rgba(74, 139, 92, 0.1) 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-navy);
+            color: var(--pure-white);
+            overflow-x: hidden;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .presentation-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(45, 90, 61, 0.1) 0%, var(--dark-navy) 70%);
+            padding: 2rem 0;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            max-width: 90%;
+            padding: 2rem;
+            animation: appleSlideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--medium-green) transparent;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--medium-green);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-green);
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes appleSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .slide h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--pure-white) 0%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+        }
+
+        .slide h2 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--pure-white);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .slide h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--medium-green);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .apple-tagline {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 600;
+            color: var(--medium-green);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .metric-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .metric-showcase.single-row {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .numbers-metric-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: nowrap;
+        }
+
+        .numbers-metric-showcase .apple-metric-card {
+            flex: 0 0 280px;
+            max-width: 280px;
+        }
+
+        .apple-metric-card {
+            background: var(--glassmorphism-bg);
+            backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 28px;
+            padding: 3rem 2rem;
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: var(--apple-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apple-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--medium-green), var(--light-green));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .apple-metric-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.5), 
+                       0 0 40px rgba(74, 139, 92, 0.15),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .apple-metric-card:hover::before {
+            opacity: 1;
+        }
+
+        .metric-number {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            color: var(--medium-green);
+            display: block;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            animation: countUpApple 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .metric-number.warning {
+            color: #6B7280;
+            opacity: 0.7;
+        }
+
+        @keyframes countUpApple {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .metric-label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--pure-white);
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .metric-sublabel {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        .problem-showcase,
+        .solution-showcase {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        .problem-showcase.single-row {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .apple-problem-card,
+        .apple-solution-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary-green);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: slideInApple 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .apple-solution-card {
+            border-left-color: var(--medium-green);
+        }
+
+        .apple-problem-card:hover,
+        .apple-solution-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(8px);
+        }
+
+        .apple-problem-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .apple-problem-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .apple-problem-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .apple-solution-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .apple-solution-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .apple-solution-card:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideInApple {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .apple-navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: var(--glassmorphism-bg);
+            backdrop-filter: blur(25px) saturate(180%);
+            padding: 16px;
+            border-radius: 80px;
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: var(--apple-shadow-light), 
+                       0 0 20px rgba(74, 139, 92, 0.1),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .apple-nav-btn {
+            padding: 16px 32px;
+            background: transparent;
+            border: none;
+            border-radius: 50px;
+            color: var(--pure-white);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .apple-nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .apple-nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            background: var(--glassmorphism-bg);
+            padding: 18px 28px;
+            border-radius: 60px;
+            backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: var(--apple-shadow-light), 
+                       0 0 15px rgba(74, 139, 92, 0.08),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .company-logo {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            height: 50px;
+            width: auto;
+            opacity: 0.9;
+            z-index: 100;
+            filter: brightness(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .company-logo:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .visual-showcase {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: var(--modern-gradient);
+            border-radius: 32px;
+            padding: 2.5rem;
+            backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: var(--apple-shadow), 
+                       0 0 20px rgba(74, 139, 92, 0.1),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .big-reveal {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--medium-green) 0%, var(--light-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 2rem 0;
+            animation: bigRevealApple 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes bigRevealApple {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateY(90deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .apple-timeline {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .apple-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--medium-green));
+            animation: timelineGrowApple 2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes timelineGrowApple {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 80%;
+            }
+        }
+
+        .timeline-milestone {
+            background: var(--pure-white);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 2rem;
+            z-index: 1;
+            box-shadow: var(--apple-shadow-light);
+            animation: milestonePopApple 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .timeline-milestone:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-milestone:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .timeline-milestone:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes milestonePopApple {
+            from {
+                opacity: 0;
+                transform: scale(0) rotate(180deg);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .apple-highlight {
+            background: linear-gradient(135deg, rgba(45, 90, 61, 0.2) 0%, rgba(74, 139, 92, 0.15) 100%);
+            padding: 0.4rem 1rem;
+            border-radius: 16px;
+            font-weight: 600;
+            color: var(--light-green);
+            border: 1px solid rgba(74, 139, 92, 0.3);
+            box-shadow: 0 2px 8px rgba(45, 90, 61, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .apple-highlight:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(45, 90, 61, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(74, 139, 92, 0.5);
+        }
+
+        .success-highlight {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(34, 197, 94, 0.15) 100%);
+            padding: 0.4rem 1rem;
+            border-radius: 16px;
+            font-weight: 600;
+            color: #86EFAC;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: inline-block;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .success-highlight:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+
+        .compact-solution-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 1.5rem auto;
+        }
+
+        .compact-solution-showcase.two-rows {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .chart-card {
+            background: var(--glassmorphism-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px) saturate(150%);
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: var(--apple-shadow-light), 
+                       0 0 15px rgba(74, 139, 92, 0.08),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--apple-shadow), 
+                       0 0 25px rgba(74, 139, 92, 0.12),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+
+        .chart-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--medium-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-description {
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            line-height: 1.4;
+        }
+
+        .compact-solution-card {
+            background: var(--glassmorphism-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--medium-green);
+            backdrop-filter: blur(15px) saturate(120%);
+            border: 1px solid var(--glassmorphism-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            animation: slideInApple 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compact-solution-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(8px) translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 
+                       0 0 20px rgba(74, 139, 92, 0.1),
+                       inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-left-color: var(--light-green);
+        }
+
+        .compact-solution-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .compact-solution-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .compact-solution-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .compact-solution-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .compact-solution-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--medium-green);
+            letter-spacing: -0.01em;
+        }
+
+        .compact-solution-card p {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            color: var(--pure-white);
+            opacity: 0.9;
+        }
+
+        .thank-you-hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hackerrank-badge {
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            background: rgba(45, 90, 61, 0.15);
+            border: 1px solid var(--medium-green);
+            border-radius: 40px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--pure-white);
+            backdrop-filter: blur(10px);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .thank-you-title {
+            font-size: clamp(5rem, 10vw, 10rem);
+            font-weight: 600;
+            color: var(--pure-white);
+            margin: 0;
+            letter-spacing: -0.04em;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .thank-you-content {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .ai-credit {
+            font-size: 1.1rem;
+            color: var(--medium-green);
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+            font-style: italic;
+        }
+
+        .contact-line {
+            font-size: 0.95rem;
+            color: var(--medium-gray);
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .minimal-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .frame-corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(74, 139, 92, 0.3);
+        }
+
+        .frame-corner.top-left {
+            top: 25%;
+            left: 15%;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 8px 0 0 0;
+        }
+
+        .frame-corner.top-right {
+            top: 25%;
+            right: 15%;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 8px 0 0;
+        }
+
+        .frame-corner.bottom-left {
+            bottom: 35%;
+            left: 15%;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 8px;
+        }
+
+        .frame-corner.bottom-right {
+            bottom: 35%;
+            right: 15%;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 8px 0;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0px);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .numbers-metric-showcase {
+                flex-wrap: wrap;
+            }
+
+            .numbers-metric-showcase .apple-metric-card {
+                flex: 1 1 100%;
+                max-width: none;
+            }
+
+            .apple-metric-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .metric-showcase.single-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .problem-showcase.single-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .apple-navigation {
+                bottom: 20px;
+                padding: 8px;
+            }
+
+            .apple-nav-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .company-logo {
+                height: 40px;
+                top: 20px;
+                left: 20px;
+            }
+
+            .visual-showcase {
+                margin: 1rem auto;
+                padding: 1.5rem;
+            }
+
+            .slide {
+                max-height: 85vh;
+                padding: 1rem;
+            }
+
+            .thank-you-title {
+                font-size: clamp(3.5rem, 12vw, 6rem);
+            }
+
+            .hackerrank-badge {
+                top: 10%;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+
+            .frame-corner {
+                width: 40px;
+                height: 40px;
+            }
+
+            .frame-corner.top-left,
+            .frame-corner.top-right {
+                top: 20%;
+            }
+
+            .frame-corner.bottom-left,
+            .frame-corner.bottom-right {
+                bottom: 30%;
+            }
+
+            .frame-corner.top-left,
+            .frame-corner.bottom-left {
+                left: 10%;
+            }
+
+            .frame-corner.top-right,
+            .frame-corner.bottom-right {
+                right: 10%;
+            }
+
+            .compact-solution-showcase {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 0.8rem;
+                margin: 1rem auto;
+            }
+
+            .compact-solution-showcase.two-rows {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                max-width: 95%;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin: 1.5rem auto;
+                max-width: 95%;
+            }
+
+            .compact-solution-card {
+                padding: 1rem;
+            }
+
+            .compact-solution-card h3 {
+                font-size: 0.9rem;
+            }
+
+            .compact-solution-card p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation-container">
+        <img src="https://codesankalp.com/images/hackerrank.png" alt="HackerRank" class="company-logo">
+
+        <div class="slide-indicator">
+            <span id="current-slide">1</span> of <span id="total-slides">8</span>
+        </div>
+
+        <!-- Slide 1: Hero -->
+        <div class="slide active">
+            <h1>5x Scale Revolution</h1>
+            <p class="hero-subtitle">From 5K to 25K workspaces.<br>One epic optimization journey.</p>
+            <div class="apple-timeline">
+                <div class="timeline-milestone">🔍</div>
+                <div class="timeline-milestone">⚡</div>
+                <div class="timeline-milestone">📊</div>
+                <div class="timeline-milestone">🚀</div>
+            </div>
+            <p class="hero-subtitle" style="margin-top: 2rem; font-size: 1.1rem; opacity: 0.7; font-weight: 500;">Workspace Service Optimization<br>Demo Day September 2025<br>Skills Team | Sankalp</p>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <h2>The Challenge</h2>
+            <p class="hero-subtitle">Unprecedented scaling requirements</p>
+
+            <div class="visual-showcase">
+                <div style="text-align: left; margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--medium-green); margin-bottom: 1rem; text-align: center;">📈 Supporting Incoming Traffic Surge</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 0.8rem;">
+                        
+                        Massive campus events featuring project-based assessments are driving unprecedented traffic spikes across our platform.
+                        <br>
+                        For example <span class="apple-highlight">Amazon</span> and <span class="apple-highlight">TCS</span> are actively exploring our Projects and Code Repos capabilities.
+                    </p>
+                </div>
+            </div>
+
+            <div class="metric-showcase single-row">
+                <div class="apple-metric-card">
+                    <h3>📈 Growing Demand</h3>
+                    <p class="metric-label">Enterprise adoption increasing exponentially</p>
+                    <p class="metric-sublabel">Amazon-level traffic patterns expected</p>
+                </div>
+                <div class="apple-metric-card">
+                    <h3>⚡ Performance Bottlenecks</h3>
+                    <p class="metric-label">Individual API calls causing delays</p>
+                    <p class="metric-sublabel">Inefficient resource utilization</p>
+                </div>
+                <div class="apple-metric-card">
+                    <h3>🔄 Rate Limit Constraints</h3>
+                    <p class="metric-label">GCP API limits slowing operations</p>
+                    <p class="metric-sublabel">Suboptimal batch processing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Previous Scale -->
+        <div class="slide">
+            <h2>Previous Scale</h2>
+            <p class="hero-subtitle">Our workspace provisioning capacity before optimization</p>
+
+            <div class="metric-showcase">
+                <div class="apple-metric-card">
+                    <span class="metric-number warning">5,000</span>
+                    <p class="metric-label">Maximum workspaces launched</p>
+                    <p class="metric-sublabel">Previous capacity limit</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number warning">300</span>
+                    <p class="metric-label">Workspaces created per minute</p>
+                    <p class="metric-sublabel">Capacity limit</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number warning">5x</span>
+                    <p class="metric-label">More API calls hitting limits</p>
+                    <p class="metric-sublabel">Rate limiting became bottleneck</p>
+                </div>
+            </div>
+
+            <div class="problem-showcase single-row">
+                <div class="apple-problem-card">
+                    <h3>🐌 Sequential Processing</h3>
+                    <p>Individual VM creation with multiple API calls per instance causing significant delays in large-scale deployments</p>
+                </div>
+                <div class="apple-problem-card">
+                    <h3>💾 Database Connection Overload</h3>
+                    <p>High connection count from individual updates overwhelming database resources during peak operations</p>
+                </div>
+                <div class="apple-problem-card">
+                    <h3>📊 Information Retrieval Inefficiency</h3>
+                    <p>No bulk read APIs forcing inefficient individual instance queries for status and configuration details</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: The Solution Framework -->
+        <div class="slide">
+            <h2>Technical Implementation</h2>
+            <p class="hero-subtitle">Optimization approach with proven GCP integrations</p>
+
+            <div class="compact-solution-showcase two-rows">
+                <div class="compact-solution-card">
+                    <h3>🚀 Bulk Insert APIs</h3>
+                    <p>Create up to 5,000 VMs per call, maximum 8,000 simultaneous instances using GCP bulk creation</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>💾 Redis Pipeline Optimization</h3>
+                    <p>Bulk insertion of route entries for VMs using Redis rdb.Pipeline for efficient data operations</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>📊 Intelligent Listing API</h3>
+                    <p>Batch retrieval of instance details using filters in groups of 250, replacing individual queries</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>⚡ API Call Reduction</h3>
+                    <p>Optimized worker to make 1 API call instead of 3, achieving 3x performance boost for non-bulk VMs</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>🔗 Connection Pooling</h3>
+                    <p>Efficient database connection management reducing resource overhead and improving throughput</p>
+                </div>
+                <div class="compact-solution-card">
+                    <h3>📈 Bulk Database Updates</h3>
+                    <p>Custom bulk update queries for backend state and runtime_info in batches of 250</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Load Test Results -->
+        <div class="slide">
+            <h2>Load Test Results</h2>
+            <p class="hero-subtitle">Validation through comprehensive testing</p>
+
+            <div class="chart-container">
+                <div class="chart-card">
+                    <img src="https://codesankalp.com/images/load_test_result_rps_chart.png" alt="Total Requests per Second Load Test Results" />
+                    <div class="chart-title">Request Throughput</div>
+                </div>
+                <div class="chart-card">
+                    <img src="https://codesankalp.com/images/running_gce_ws_grafana.png" alt="Running GCE Workspaces Grafana Dashboard" />
+                    <div class="chart-title">Workspace Scaling</div>
+                </div>
+            </div>
+
+            <div class="metric-showcase numbers-metric-showcase">
+                <div class="apple-metric-card">
+                    <span class="metric-number">5,000</span>
+                    <p class="metric-label">Workspaces Created Per Minute</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">25K+</span>
+                    <p class="metric-label">Concurrent Workspaces</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">0</span>
+                    <p class="metric-label">Failures</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Performance Results -->
+        <div class="slide">
+            <h2>The Results</h2>
+            <div class="big-reveal">25,000</div>
+            <p class="apple-tagline">Workspaces launched in GCP</p>
+            
+            <div class="metric-showcase numbers-metric-showcase">
+                <div class="apple-metric-card">
+                    <span class="metric-number">400%</span>
+                    <p class="metric-label">Capacity Increase</p>
+                    <p class="metric-sublabel">From 5,000 to 25,000 workspaces</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">0</span>
+                    <p class="metric-label">Database & System Errors</p>
+                    <p class="metric-sublabel">Robust error-free performance</p>
+                </div>
+                <div class="apple-metric-card">
+                    <span class="metric-number">5,000</span>
+                    <p class="metric-label">VMs per Bulk Call</p>
+                    <p class="metric-sublabel">Maximum efficiency achieved</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: What's Next -->
+        <div class="slide">
+            <h2>Future Roadmap</h2>
+            <div class="solution-showcase">
+                <div class="apple-solution-card">
+                    <h3>🚀 Workspace Login Scaling</h3>
+                    <p>Scale from current <strong>100 workspace logins per minute per company</strong> to <strong>1,000 per minute</strong> - achieving 10x improvement for enterprise customers</p>
+                </div>
+                <div class="apple-solution-card">
+                    <h3>🧪 End-to-End Load Testing</h3>
+                    <p>Comprehensive candidate simulation testing for <strong>25,000 candidates</strong> with realistic user actions and assessment workflows</p>
+                </div>
+                <div class="apple-solution-card">
+                    <h3>🌐 Multi-Region Scaling</h3>
+                    <p>Expand both India and US regions to support <strong>50,000 combined workspaces</strong> with optimized cross-region performance</p>
+                </div>
+                <div class="apple-solution-card">
+                    <h3>🔮 Intelligent Auto-Scaling</h3>
+                    <p>Implement predictive scaling based on demand patterns for proactive capacity management</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Thank You -->
+        <div class="slide">
+            <div class="thank-you-hero">
+                <div class="hackerrank-badge">
+                    <img src="https://codesankalp.com/images/hackerrank.png" alt="HackerRank"
+                        style="height: 24px; margin-right: 8px;">
+                    <span>HackerRank</span>
+                </div>
+
+                <h1 class="thank-you-title">Thank You</h1>
+
+                <div class="thank-you-content">
+                    <p class="ai-credit">Built with AI</p>
+                    <p class="contact-line">Please reach out to Sankalp for any questions</p>
+                </div>
+
+                <div class="minimal-frame">
+                    <div class="frame-corner top-left"></div>
+                    <div class="frame-corner top-right"></div>
+                    <div class="frame-corner bottom-left"></div>
+                    <div class="frame-corner bottom-right"></div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+
+            document.getElementById('current-slide').textContent = n + 1;
+            document.getElementById('prev-btn').disabled = n === 0;
+            document.getElementById('next-btn').disabled = n === totalSlides - 1;
+
+            if (n === totalSlides - 2) {
+                document.getElementById('next-btn').textContent = 'Thank You →';
+            } else if (n === totalSlides - 1) {
+                document.getElementById('next-btn').textContent = '🎉 Finish';
+            } else {
+                document.getElementById('next-btn').textContent = 'Next →';
+            }
+
+            // Trigger number animations when results slide becomes active
+            if (n === 5) { // Results slide
+                animateResultNumbers();
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        function animateResultNumbers() {
+            const bigReveal = document.querySelector('.big-reveal');
+            if (bigReveal) {
+                let count = 0;
+                const target = 25000;
+                const increment = target / 100; // 100 frames for smooth animation
+
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        count = target;
+                        clearInterval(timer);
+                    }
+                    bigReveal.textContent = count.toLocaleString();
+                }, 20); // ~50fps
+            }
+
+            // Animate percentage
+            const percentageCard = document.querySelector('.metric-number');
+            if (percentageCard && percentageCard.textContent === '400%') {
+                let count = 0;
+                const target = 400;
+                const increment = target / 60;
+
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        count = target;
+                        clearInterval(timer);
+                    }
+                    percentageCard.textContent = Math.floor(count) + '%';
+                }, 25);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                currentSlide = 0;
+                showSlide(currentSlide);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                currentSlide = totalSlides - 1;
+                showSlide(currentSlide);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function (e) {
+            endX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (endX < startX - 50) { // Swipe left - next slide
+                nextSlide();
+            }
+            if (endX > startX + 50) { // Swipe right - previous slide
+                previousSlide();
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+
+        // Add some Apple-style magic for card hover effects
+        document.addEventListener('mousemove', function (e) {
+            const cards = document.querySelectorAll('.apple-metric-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                } else {
+                    card.style.transform = '';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
